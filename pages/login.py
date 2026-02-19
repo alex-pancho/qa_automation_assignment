@@ -12,38 +12,18 @@ class LoginPageLocators:
     # Main form
     LOGIN_FORM = Locator(
         type=LocatorType.XPATH,
-        value='//article/div[@class="x5n08af x78zum5 xdt5ytf x1iyjqo2 xl56j7k x7qam4e x14vqqas x15lw1kp x1dc814f x1owpceq xh8yej3"]',
+        value='//div[@class="form_column"]',
     )
 
     # Input fields
-    USERNAME_INPUT = Locator(type=LocatorType.XPATH, value="//input[@name='username']")
+    USERNAME_INPUT = Locator(type=LocatorType.XPATH, value="//*[@id='user-name']")
 
-    PASSWORD_INPUT = Locator(type=LocatorType.XPATH, value="//input[@name='password']")
+    PASSWORD_INPUT = Locator(type=LocatorType.XPATH, value="//*[@id='password']")
 
     # Buttons
-    LOGIN_BUTTON = Locator(type=LocatorType.XPATH, value="//button[@type='submit']")
+    LOGIN_BUTTON = Locator(type=LocatorType.XPATH, value="//*[@id='login-button']")
 
-    FACEBOOK_LOGIN_BUTTON = Locator(
-        type=LocatorType.XPATH,
-        value="//button[@type='button' and contains(.//text(), 'Log in with Facebook')]",
-    )
-
-    # Links
-    FORGOT_PASSWORD_LINK = Locator(
-        type=LocatorType.XPATH,
-        value="//a[@href='/accounts/password/reset/' and contains(text(), 'Forgot password?')]",
-    )
-
-    SIGN_UP_LINK = Locator(
-        type=LocatorType.XPATH,
-        value="//a[@href='/accounts/emailsignup/' and contains(.//text(), 'Sign up')]",
-    )
-
-    # Error message
-    ERROR_MESSAGE = Locator(type=LocatorType.ID, value="error-message")
-
-    # Logo
-    LOGO_IMAGE = Locator(type=LocatorType.XPATH, value="//i[@aria-label='Instagram']")
+    ERROR_MESSAGE = Locator(type=LocatorType.XPATH, value="//h3[@data-test='error']")
 
 
 class LoginPage(BasePage):
@@ -79,30 +59,10 @@ class LoginPage(BasePage):
         """Get login button element"""
         pass
 
-    @element("FACEBOOK_LOGIN_BUTTON")
-    def facebook_login_button(self) -> WebElement:
-        """Get Facebook login button element"""
-        pass
-
-    @element("FORGOT_PASSWORD_LINK")
-    def forgot_password_link(self) -> WebElement:
-        """Get forgot password link element"""
-        pass
-
-    @element("SIGN_UP_LINK")
-    def sign_up_link(self) -> WebElement:
-        """Get sign up link element"""
-        pass
-
     @element("ERROR_MESSAGE")
     def error_message(self) -> WebElement:
-        """Get error message element"""
         pass
 
-    @element("LOGO_IMAGE")
-    def logo_image(self) -> WebElement:
-        """Get logo image element"""
-        pass
 
     # Page state checks
     @log_action("Checking if login page is displayed")
