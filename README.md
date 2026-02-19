@@ -60,28 +60,35 @@ Provide one of the following:
 # Technical Requirements
 ## Technology Stack
 Choose your preferred technology stack. Recommended options:
+```
 Language	UI Framework	API Framework	Runner
 Python	Selenium, Playwright	Requests, httpx	pytest
 C#	Selenium, Playwright	RestSharp, HttpClient	NUnit, xUnit
 JavaScript/TS	Playwright, WebDriverIO	Axios, native fetch	Jest, Mocha
 Java	Selenium WebDriver	REST Assured	JUnit, TestNG
+```
 Note: You may use any language/framework you're comfortable with. The above are suggestions, not requirements.
-Code Quality Expectations
+
+# Code Quality Expectations
 •	Clean, readable, and maintainable code
 •	Meaningful naming conventions
 •	Appropriate use of comments where necessary
 •	No hardcoded sensitive data (use configuration files or environment variables)
-Submission Instructions
-Repository Setup
-6.	Create a public GitHub repository with a descriptive name (e.g., qa-automation-assignment)
-7.	Initialize with a README.md containing:
-•	Brief project description
-•	Prerequisites (dependencies, tools)
-•	Setup instructions
-•	How to run tests locally
-•	How to view test reports
-•	Project structure overview
-Expected Repository Structure
+
+# Submission Instructions
+
+## Repository Setup
+1.	Create a public GitHub repository with a descriptive name (e.g., qa-automation-assignment)
+2.	Initialize with a README.md containing:
+*	Brief project description
+*	Prerequisites (dependencies, tools)
+*	Setup instructions
+*	How to run tests locally
+*	How to view test reports
+*	Project structure overview
+  
+## Expected Repository Structure
+```
 qa-automation-assignment/
 ├── README.md
 ├── .github/
@@ -98,16 +105,18 @@ qa-automation-assignment/
 │   ├── ui/
 │   └── api/
 └── requirements.txt / package.json
-Final Steps
-8.	Complete the assignment
-9.	Push all code to your GitHub repository
-10.	Ensure CI/CD pipeline runs successfully (if using GitHub Actions)
-11.	Send the repository link to us
-Evaluation Criteria
+```
+# Final Steps
+1.	Complete the assignment
+2.	Push all code to your GitHub repository
+3.	Ensure CI/CD pipeline runs successfully (if using GitHub Actions)
+4.	Send the repository link to us
+# Evaluation Criteria
+```
 Category	Weight	What We're Looking For
 Framework Architecture	30%	Clean structure, appropriate patterns (POM), separation of concerns, reusability
 Test Implementation	25%	Coverage of required scenarios, proper assertions, test independence
 Code Quality	20%	Readability, naming conventions, DRY principles, error handling
 CI/CD & Execution	15%	Working pipeline or Docker setup, clear run instructions
 Documentation	10%	Clear README, setup instructions, comments where needed
-
+```
