@@ -17,8 +17,8 @@ load_dotenv()
 DEBUG_URL = os.getenv("DEBUG_URL", "http://localhost:5000/")
 BASE_UI_URL = os.getenv("BASE_UI_URL", "https://www.saucedemo.com/")
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
-HEADLESS = os.getenv("HEADLESS", "false").lower() == "true"
-BROWSER = os.getenv("BROWSER", "chromium").lower() 
+HEADLESS = os.getenv("HEADLESS", "true").lower() == "true"
+BROWSER = os.getenv("BROWSER", "chromium").lower()
 
 
 @pytest.fixture(scope="session")
