@@ -22,4 +22,4 @@ jobs:
           playwright install --with-deps
           
       - name: Run tests
-        run: pytest
+        run: pytest -v --html=report.html

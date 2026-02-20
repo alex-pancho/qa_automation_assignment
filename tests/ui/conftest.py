@@ -9,13 +9,12 @@ from framework.locator import DriverType
 from pages.login import LoginPage
 from pages.login_actions import LoginPageActions
 
-from tests.helper import logout
 
 load_dotenv()
 
 
-DEBUG_URL = os.getenv("DEBUG_URL", "http://localhost:5000/")
-BASE_UI_URL = os.getenv("BASE_UI_URL", "https://www.saucedemo.com/")
+DEBUG_URL = os.getenv("DEBUG_URL", "https://127.0.0.1")
+BASE_UI_URL = os.getenv("BASE_UI_URL", "https://www.example.com")
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 HEADLESS = os.getenv("HEADLESS", "true").lower() == "true"
 BROWSER = os.getenv("BROWSER", "chromium").lower()
@@ -24,8 +23,8 @@ BROWSER = os.getenv("BROWSER", "chromium").lower()
 @pytest.fixture(scope="session")
 def get_test_credentials() -> tuple[str, str]:
     """Fixture to provide test credentials from environment variables"""
-    test_username = os.getenv("TEST_USERNAME", "themepark")
-    test_password = os.getenv("TEST_PASSWORD", "password123")
+    test_username = os.getenv("TEST_USERNAME", "testname")
+    test_password = os.getenv("TEST_PASSWORD", "password")
     return test_username, test_password
 
 
