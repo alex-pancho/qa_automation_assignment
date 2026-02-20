@@ -17,6 +17,7 @@ def test_login_positive(
     login_page.login(login, password)
 
     # Wait for redirect
+    
     assert not login_page._page.login_form.is_visible(), "Login form still displayed"
 
 
