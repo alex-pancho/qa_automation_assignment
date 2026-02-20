@@ -1,5 +1,5 @@
 import time
-from framework.logger import log_action, setup_logger
+from framework.logger import log_action
 from pages.store import FeedPage
 
 
@@ -13,7 +13,7 @@ class FeedPageActions:
             feed_page: FeedPage object instance
         """
         self._page = feed_page
-        self._logger = setup_logger(self.__class__.__name__)
+        self._logger = feed_page._logger
 
     # Page state checks
     @log_action("Checking if feed page is displayed")

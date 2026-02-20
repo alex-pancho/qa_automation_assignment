@@ -1,5 +1,5 @@
 from framework.locator import DriverType
-from framework.logger import setup_logger
+from framework.logger import setup_logger, logging
 
 
 class BasePage:
@@ -27,5 +27,5 @@ class BasePage:
         self._driver = driver
         self._driver_type = driver_type
         self._timeout = timeout
-        self._logger = setup_logger(self.__class__.__name__)
+        self._logger = setup_logger(self.__class__.__name__, logging.DEBUG)
         self._locators = None

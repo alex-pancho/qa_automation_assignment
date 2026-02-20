@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 from framework.driver_factory import DriverFactory
 from framework.locator import DriverType
+from framework.logger import log_info
 
 from pages.login import LoginPage
 from pages.login_actions import LoginPageActions
@@ -57,6 +58,7 @@ def base_page():
 def login_page(base_page):
     """fixture for login page"""
     url, page = base_page
+    log_info(f"GET URL: {url}")
     login_page = LoginPage(page, DriverType.PLAYWRIGHT)
     login_page_actions = LoginPageActions(login_page)
     yield login_page_actions

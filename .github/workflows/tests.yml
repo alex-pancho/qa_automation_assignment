@@ -22,7 +22,7 @@ jobs:
           playwright install --with-deps
           
       - name: Run tests
-        run: pytest -v --html=report.html --self-contained-html
+        run: pytest -v -s --html=report.html --self-contained-html
         env:
           HEADLESS: "true"
 

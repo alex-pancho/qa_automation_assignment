@@ -27,7 +27,7 @@ class LoginPageActions:
                     raise AttributeError(f"LoginPage must have '{method}' attribute")
 
         self._page = login_page
-        self._logger = setup_logger(self.__class__.__name__)
+        self._logger = login_page._logger
 
     @log_action("Performing login")
     def login(
