@@ -37,7 +37,14 @@ def test_try_login_wo_fill_name_or_password(
     assert not login_page._page.login_button.is_clickable()
     login_page.enter_username("")
     login_page.enter_password(password)
-    assert not login_page._page.login_button.is_clickable()
+    login_page._page.login_button.click()
+    error_text = login_page._page.get_error_message()
+    assert error_text == "Epic sadface: Username is required", f"Another error text: {error_text}"
+    login_page.enter_username(login)
+    login_page.enter_password("")
+    login_page._page.login_button.click()
+    error_text = login_page._page.get_error_message()
+    assert error_text == "Epic sadface: Password is required", f"Another error text: {error_text}"
 
 
 # def test_signup_redirect(

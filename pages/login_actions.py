@@ -77,6 +77,18 @@ class LoginPageActions:
         except Exception as e:
             self._logger.error(f"Login failed: {type(e).__name__}: {str(e)}")
             raise
+    
+    @log_action("Logout")
+    def _logout(
+        self,
+    ) -> bool:
+        self._logger.debug("Logout start")
+        if self._page.burger.is_visible():
+            self._page.burger.click()
+        if self._page.is_logout_displayed():
+            self._page.logout.click()
+            self._logger.debug("SAY: Bye-bye!")
+
 
     @log_action("Entering username")
     def enter_username(self, username: str) -> None:
@@ -197,16 +209,6 @@ class LoginPageActions:
             self._logger.error(f"Failed to click sign up: {e}")
             raise
 
-    @log_action("Clicking Facebook login button")
-    def click_facebook_login(self) -> None:
-        """Click the Facebook login button"""
-        try:
-            self._logger.debug("Clicking Facebook login button")
-            self._page.facebook_login_button.click()
-
-        except Exception as e:
-            self._logger.error(f"Failed to click Facebook login: {e}")
-            raise
 
     @log_action("Taking screenshot")
     def screenshot(self, file_name: str = "login_page.png") -> None:

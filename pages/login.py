@@ -25,6 +25,10 @@ class LoginPageLocators:
 
     ERROR_MESSAGE = Locator(type=LocatorType.XPATH, value="//h3[@data-test='error']")
 
+    BURGER = Locator(type=LocatorType.XPATH, value="//*[@id='react-burger-menu-btn']")
+
+    LOGOUT = Locator(type=LocatorType.XPATH, value="//*[@id='logout_sidebar_link']")
+
 
 class LoginPage(BasePage):
     """Page Object Model for Login Page"""
@@ -63,6 +67,13 @@ class LoginPage(BasePage):
     def error_message(self) -> WebElement:
         pass
 
+    @element("BURGER")
+    def burger(self) -> WebElement:
+        pass
+
+    @element("LOGOUT")
+    def logout(self) -> WebElement:
+        pass
 
     # Page state checks
     @log_action("Checking if login page is displayed")
@@ -124,6 +135,15 @@ class LoginPage(BasePage):
         """Check if error message is displayed"""
         try:
             return self.error_message.is_visible()
+        except Exception as e:
+            self._logger.error(f"Failed to check error message: {e}")
+            return False
+    
+    @log_action("Checking if logout is displayed")
+    def is_logout_displayed(self) -> bool:
+        """Check if logout is displayed"""
+        try:
+            return self.logout.is_visible()
         except Exception as e:
             self._logger.error(f"Failed to check error message: {e}")
             return False

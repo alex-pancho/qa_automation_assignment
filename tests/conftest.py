@@ -15,9 +15,10 @@ load_dotenv()
 
 
 DEBUG_URL = os.getenv("DEBUG_URL", "http://localhost:5000/")
-TEST_URL = os.getenv("TEST_URL", "https://www.saucedemo.com/")
+BASE_UI_URL = os.getenv("BASE_UI_URL", "https://www.saucedemo.com/")
 DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 HEADLESS = os.getenv("HEADLESS", "false").lower() == "true"
+BROWSER = os.getenv("BROWSER", "chromium").lower() 
 
 
 @pytest.fixture(scope="session")
@@ -32,7 +33,7 @@ def get_test_credentials() -> tuple[str, str]:
 def build_context(url: str):
     """Context manager to create and cleanup browser context"""
     context, browser, playwright = DriverFactory.create_playwright_local(
-        browser_type="chromium", headless=HEADLESS
+        browser_type=BROWSER, headless=HEADLESS
     )
     page = context.new_page()
 
@@ -48,7 +49,7 @@ def build_context(url: str):
 @pytest.fixture(scope="module")
 def base_page():
     """Base fixture that provides page object and URL"""
-    url = DEBUG_URL if DEBUG else TEST_URL
+    url = DEBUG_URL if DEBUG else BASE_UI_URL
     with build_context(url) as page:
         yield url, page
 
@@ -60,4 +61,5 @@ def login_page(base_page):
     login_page = LoginPage(page, DriverType.PLAYWRIGHT)
     login_page_actions = LoginPageActions(login_page)
     yield login_page_actions
-    
+    login_page_actions._logout()
+
