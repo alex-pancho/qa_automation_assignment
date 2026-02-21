@@ -28,6 +28,8 @@ jobs:
       - name: Run tests
         run: |
           pytest -v -s --html=report.html --self-contained-html
+        env:
+          HEADLESS: "true"
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
