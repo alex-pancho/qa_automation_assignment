@@ -5,6 +5,10 @@ def test_login_positive(
     login_page: LoginPageActions,
     get_test_credentials: tuple[str, str],
 ):
+    """
+    Successful login with valid credentials
+    """
+    login_page._logger.info("Successful login with valid credentials")
     # Check if page is displayed
     assert login_page.is_page_displayed(), "Login page not displayed"
 
@@ -25,6 +29,10 @@ def test_try_login_wo_fill_name_or_password(
     login_page: LoginPageActions,
     get_test_credentials: tuple[str, str],
 ):
+    """
+    Failed login with invalid credentials (verify error message)
+    """
+    login_page._logger.info("Failed login with invalid credentials (verify error message)")
     # Check if page is displayed
     assert login_page.is_page_displayed(), "Login page not displayed"
 
@@ -46,14 +54,3 @@ def test_try_login_wo_fill_name_or_password(
     login_page._page.login_button.click()
     error_text = login_page._page.get_error_message()
     assert error_text == "Epic sadface: Password is required", f"Another error text: {error_text}"
-
-
-# def test_signup_redirect(
-#     login_page: LoginPageActions,
-# ):
-#     # Check if login page is displayed
-#     assert login_page.is_page_displayed(), "Login page not displayed"
-
-#     login_page.click_sign_up()
-#     # Check if sign up page is displayed
-#     assert not login_page._page.sign_up_link.is_visible(), "Login page still displayed"

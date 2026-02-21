@@ -26,9 +26,8 @@ jobs:
           playwright install --with-deps
           
       - name: Run tests
-        run: pytest -v -s --html=report.html --self-contained-html
-        env:
-          HEADLESS: "true"
+        run: |
+          pytest -v -s --html=report.html --self-contained-html
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v4

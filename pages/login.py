@@ -36,7 +36,7 @@ class LoginPage(BasePage):
     def __init__(
         self,
         driver,
-        driver_type: DriverType = DriverType.SELENIUM,
+        driver_type: DriverType = DriverType.PLAYWRIGHT,
         timeout: int = 10000,
     ):
         super().__init__(driver, driver_type, timeout)

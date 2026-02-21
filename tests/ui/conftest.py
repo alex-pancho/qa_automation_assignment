@@ -9,6 +9,8 @@ from framework.logger import log_info
 
 from pages.login import LoginPage
 from pages.login_actions import LoginPageActions
+from pages.store import StorePage
+from pages.store_actions import StorePageActions
 
 
 load_dotenv()
@@ -64,3 +66,17 @@ def login_page(base_page):
     yield login_page_actions
     login_page_actions._logout()
 
+
+@pytest.fixture()
+def store_page(base_page, get_test_credentials):
+    """fixture for login page"""
+    url, page = base_page
+    log_info(f"GET URL: {url}")
+    login_page = LoginPage(page, DriverType.PLAYWRIGHT)
+    login_page_actions = LoginPageActions(login_page)
+    login, password = get_test_credentials
+    login_page_actions.login(login, password)
+    store_page = StorePage(page, DriverType.PLAYWRIGHT)
+    store_page_actions = StorePageActions(store_page)
+    yield store_page_actions
+    login_page_actions._logout()

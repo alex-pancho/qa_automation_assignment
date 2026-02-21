@@ -83,11 +83,18 @@ class LoginPageActions:
         self,
     ) -> bool:
         self._logger.debug("Logout start")
-        if self._page.burger.is_visible():
-            self._page.burger.click()
-        if self._page.is_logout_displayed():
-            self._page.logout.click()
-            self._logger.debug("SAY: Bye-bye!")
+        if not self._page.burger.is_presented():
+            self._logger.debug("Burger menu not present → user not logged in")
+            return True
+        
+        self._page.burger.click()
+
+        if not  self._page.is_logout_displayed():
+            self._logger.debug("Logout button not visible → probably already logged out")
+            return True
+        
+        self._page.logout.click()
+        self._logger.debug("SAY: Bye-bye!")
 
 
     @log_action("Entering username")

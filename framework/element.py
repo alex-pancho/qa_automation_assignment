@@ -171,6 +171,21 @@ class ManyWebElements(WebElement):
         elements = self.find()
         return elements[index]
 
+class elements:
+    def __init__(self, locator_name: str):
+        self.locator_name = locator_name
+
+    def __call__(self, func) -> WebElement:
+        def wrapper(obj):
+            locator = getattr(obj._locators, self.locator_name)
+            return ManyWebElements(
+                locator,
+                obj._driver,
+                obj._driver_type,
+                obj._timeout,
+            )
+
+        return property(wrapper)
 
 class ElementNotFound(Exception):
     """Custom exception for element not found"""
