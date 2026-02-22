@@ -1,0 +1,220 @@
+openapi: 3.0.3
+info:
+  title: JSONPlaceholder Posts API
+  description: Fake REST API for testing and prototyping
+  version: 1.0.0
+
+servers:
+  - url: https://jsonplaceholder.typicode.com
+
+paths:
+  /posts:
+    get:
+      summary: Get all posts
+      description: Returns a list of posts. Supports filtering by userId.
+      parameters:
+        - name: userId
+          in: query
+          description: Filter posts by user ID
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Post"
+
+    post:
+      summary: Create a new post
+      description: Creates a new post (fake creation).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostCreate"
+      responses:
+        "201":
+          description: Post created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+
+  /posts/{id}:
+    get:
+      summary: Get post by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Single post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+
+    put:
+      summary: Update a post
+      description: Fully updates a post (fake update).
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        "200":
+          description: Updated post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+
+    patch:
+      summary: Partially update a post
+      description: Partially updates a post (fake update).
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostPatch"
+      responses:
+        "200":
+          description: Patched post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+
+    delete:
+      summary: Delete a post
+      description: Deletes a post (fake delete).
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Post deleted successfully
+
+  /posts/{id}/comments:
+    get:
+      summary: Get comments for a post
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of comments for a post
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Comment"
+
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: foo
+        body:
+          type: string
+          example: bar
+        userId:
+          type: integer
+          example: 1
+      required:
+        - id
+        - title
+        - body
+        - userId
+
+    PostCreate:
+      type: object
+      properties:
+        title:
+          type: string
+          example: foo
+        body:
+          type: string
+          example: bar
+        userId:
+          type: integer
+          example: 1
+      required:
+        - title
+        - body
+        - userId
+
+    PostPatch:
+      type: object
+      properties:
+        title:
+          type: string
+          example: updated title
+        body:
+          type: string
+          example: updated body
+        userId:
+          type: integer
+          example: 1
+
+    Comment:
+      type: object
+      properties:
+        postId:
+          type: integer
+          example: 1
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: comment title
+        email:
+          type: string
+          example: test@example.com
+        body:
+          type: string
+          example: comment body
+      required:
+        - postId
+        - id
+        - name
+        - email
+        - body

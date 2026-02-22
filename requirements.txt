@@ -2,3 +2,6 @@ playwright
 pytest
 pytest-html
 python-dotenv
+pydantic
+niquests
+pyyaml
