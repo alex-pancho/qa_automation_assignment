@@ -73,6 +73,8 @@ class ApiClient:
         :param self: Description
         :rtype: Any
         """
+        if is_dataclass(self.data):
+            self.data = asdict(self.data)
         try:
             resp = self.session.request(
                 method=self.method,
@@ -88,6 +90,7 @@ class ApiClient:
 
         content_type = resp.headers.get("Content-Type", "")
         body = None
+
         if resp.text:
             if "application/json" in str(content_type):
                 try:
@@ -104,6 +107,7 @@ class ApiClient:
             raise APIError(resp.status_code, message, response=resp)
         elif self.validate_response:
             self.validate(body, self.schema)
+        
         return body
 
     @staticmethod

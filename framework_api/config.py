@@ -15,7 +15,7 @@ load_dotenv()
 
 
 class APIConfig(BaseModel):
-    """Конфігурація API клієнта"""
+    """API client configuration"""
 
     base_portal: str
     timeout: int = Field(default=30, ge=1)
@@ -35,7 +35,7 @@ class APIConfig(BaseModel):
 
 
 class TestConfig(BaseModel):
-    """Конфігурація тестів"""
+    """Test configuration"""
 
     max_response_time: float = Field(default=5.0, gt=0)
     retry_count: int = Field(default=0, ge=0)
@@ -46,7 +46,7 @@ class TestConfig(BaseModel):
 
 
 class ReportConfig(BaseModel):
-    """Конфігурація звітів"""
+    """Report configuration"""
 
     output_dir: str = Field(default="./reports")
     format: str = Field(default="json", pattern="^(json|html|xml)$")
@@ -56,7 +56,7 @@ class ReportConfig(BaseModel):
 
 
 class EnvironmentConfig(BaseModel):
-    """Конфігурація середовища"""
+    """Environment configuration"""
 
     name: str = Field(default="default")
     api: APIConfig
@@ -66,7 +66,7 @@ class EnvironmentConfig(BaseModel):
 
 
 class ConfigManager:
-    """Менеджер конфігурацій"""
+    """Configuration manager"""
 
     def __init__(self, config_path: Optional[str] = None):
         self.config_path = config_path
@@ -76,13 +76,13 @@ class ConfigManager:
             self.load_config(config_path)
 
     def load_config(self, path: str) -> EnvironmentConfig:
-        """Завантажує конфігурацію з файлу"""
+        """Loads configuration from file"""
         config_file = Path(path)
 
         if not config_file.exists():
             raise FileNotFoundError(f"Config file not found: {path}")
 
-        # Визначаємо формат файлу
+        # Detect file format
         if config_file.suffix == ".json":
             with open(config_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -96,10 +96,10 @@ class ConfigManager:
         return self.config
 
     def save_config(self, path: str, config: EnvironmentConfig):
-        """Зберігає конфігурацію у файл"""
+        """Saves configuration to file"""
         config_file = Path(path)
 
-        # Створюємо директорію якщо не існує
+        # Create directory if it does not exist
         config_file.parent.mkdir(parents=True, exist_ok=True)
 
         data = config.model_dump()
@@ -114,25 +114,25 @@ class ConfigManager:
             raise ValueError(f"Unsupported config format: {config_file.suffix}")
 
     def get_api_config(self) -> APIConfig:
-        """Повертає конфігурацію API"""
+        """Returns API configuration"""
         if not self.config:
             raise ValueError("Config not loaded")
         return self.config.api
 
     def get_test_config(self) -> TestConfig:
-        """Повертає конфігурацію тестів"""
+        """Returns test configuration"""
         if not self.config:
             raise ValueError("Config not loaded")
         return self.config.test
 
     def get_report_config(self) -> ReportConfig:
-        """Повертає конфігурацію звітів"""
+        """Returns report configuration"""
         if not self.config:
             raise ValueError("Config not loaded")
         return self.config.report
 
     def get_variable(self, key: str, default: Any = None) -> Any:
-        """Повертає змінну з конфігурації"""
+        """Returns variable from configuration"""
         if not self.config:
             raise ValueError("Config not loaded")
         return self.config.variables.get(key, default)
@@ -150,13 +150,12 @@ def work_config(name: str):
     )
 
 
-# Приклад створення конфігурацій для різних середовищ
+# Example of creating configurations for different environments
 def create_configs():
-    """Створює приклади конфігураційних файлів"""
+    """Creates example configuration files"""
 
-    # Development конфігурація
+    # Development configuration
     name = "test"
-    # w_config = work_config(name)
     test_config = EnvironmentConfig(
         name=name,
         api=work_config("BASE_API_URL"),
@@ -167,7 +166,7 @@ def create_configs():
         },
     )
 
-    # Зберігаємо конфігурації
+    # Save configurations
     manager = ConfigManager()
 
     Path("./configs").mkdir(exist_ok=True)
@@ -176,26 +175,24 @@ def create_configs():
 
     manager.save_config(f"./configs/test.{suffix}", test_config)
 
-    print("✓ Конфігураційні файли створено:")
+    print("✓ Configuration files created:")
     print(f"  - ./configs/test.{suffix}")
-    print(f"  - ./configs/preprod.{suffix}")
-    print(f"  - ./configs/prod.{suffix}")
     return suffix
 
 
-# Приклад використання
+# Usage example
 if __name__ == "__main__":
-    # Створення прикладів конфігурацій
+    # Create example configurations
     suffix = create_configs()
-    for conf in ["test"]: #, "preprod", "prod"
-        # Завантаження конфігурації
+    for conf in ["test"]:  # , "preprod", "prod"
+        # Load configuration
         manager = ConfigManager(f"./configs/{conf}.{suffix}")
 
         print("\n" + "=" * 50)
-        print(f"Перевірка завантаження конфігурації {conf}:")
+        print(f"Configuration load check: {conf}")
         print("=" * 50)
         print(f"env: {manager.config.name}")
-        print(f"agreement URL: {manager.config.api.base_portal}")
+        print(f"Base API URL: {manager.config.api.base_portal}")
         print(f"Timeout: {manager.config.api.timeout}s")
         print(f"Max Response Time: {manager.config.test.max_response_time}s")
         print(f"Log Level: {manager.config.test.log_level}")

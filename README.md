@@ -56,7 +56,8 @@ API tests follow a **Decoupled API Model**:
 - Response validation and status checks
 - Designed for easy extension to real APIs
 
-Framework concept was adapted and simplified from [my autoservice api project](https://github.com/alex-pancho/car_open_api_tests)
+Framework concept was adapted and simplified from [my autoservice api project](https://github.com/alex-pancho/car_open_api_tests).
+**ATTENTION!** The Python class describing endpoints is not written manually, but is generated according to the OAS specification in a YAML file.
 
 ## How to Run Tests
 
