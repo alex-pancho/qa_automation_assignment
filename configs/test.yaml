@@ -1,0 +1,22 @@
+api:
+  base_portal: jsonplaceholder.typicode.com
+  headers:
+    Content-Type: application/json
+    X-Environment: development
+  timeout: 10
+  verify_ssl: false
+name: test
+report:
+  format: json
+  include_request_details: true
+  include_response_body: false
+  include_timestamps: true
+  output_dir: ./reports
+test:
+  log_level: DEBUG
+  max_response_time: 10.0
+  retry_count: 1
+  retry_delay: 1.0
+variables:
+  client_id: null
+  client_secret: null
