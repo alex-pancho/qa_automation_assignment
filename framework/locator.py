@@ -25,7 +25,7 @@ class Locator:
     def to_playwright(self) -> str:
         """Convert to Playwright format"""
         mapping = {
-            LocatorType.XPATH: lambda v: v,  # Playwright supports xpath directly
+            LocatorType.XPATH: lambda v: f"xpath={v}",  # Playwright supports xpath directly
             LocatorType.CSS: lambda v: v,  # CSS selector format
             LocatorType.ID: lambda v: f"#{v}",
             LocatorType.TEXT: lambda v: f"text={v}",

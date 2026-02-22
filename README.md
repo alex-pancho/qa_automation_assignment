@@ -30,4 +30,7 @@ pip install -r requirements.txt
 pytest
 
 ## CI
-Tests run automatically on push via GitHub Actions
+Tests run automatically on push via GitHub Actions.
+
+Report available in [Actions tab](https://github.com/alex-pancho/qa_automation_assignment/actions/workflows/tests.yml)
+

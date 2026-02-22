@@ -6,7 +6,7 @@ def test_login_positive(
     get_test_credentials: tuple[str, str],
 ):
     """
-    Successful login with valid credentials
+    1 Successful login with valid credentials
     """
     login_page._logger.info("Successful login with valid credentials")
     # Check if page is displayed
@@ -30,7 +30,7 @@ def test_try_login_wo_fill_name_or_password(
     get_test_credentials: tuple[str, str],
 ):
     """
-    Failed login with invalid credentials (verify error message)
+    2 Failed login with invalid credentials (verify error message)
     """
     login_page._logger.info("Failed login with invalid credentials (verify error message)")
     # Check if page is displayed

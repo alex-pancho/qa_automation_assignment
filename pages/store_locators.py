@@ -74,3 +74,62 @@ class StorePageLocators:
         type=LocatorType.XPATH,
         value='//option[@value="lohi"]',
     )
+
+    # Cart page
+    CHECKOUT_BUTTON = Locator(
+        type=LocatorType.XPATH,
+        value='//button[@id="checkout"]',
+    )
+
+    CONTINUE_SHOPPING_BUTTON = Locator(
+        type=LocatorType.XPATH,
+        value='//button[@id="continue-shopping"]',
+    )
+
+    CART_ITEM = Locator(
+        type=LocatorType.XPATH,
+        value='//div[@class="cart_item"]',
+    )
+
+    # Checkout: Your Information
+    FIRST_NAME_INPUT = Locator(
+        type=LocatorType.XPATH,
+        value='//input[@id="first-name"]',
+    )
+
+    LAST_NAME_INPUT = Locator(
+        type=LocatorType.XPATH,
+        value='//input[@id="last-name"]',
+    )
+
+    POSTAL_CODE_INPUT = Locator(
+        type=LocatorType.XPATH,
+        value='//input[@id="postal-code"]',
+    )
+
+    CONTINUE_BUTTON = Locator(
+        type=LocatorType.XPATH,
+        value='//input[@id="continue"]',
+    )
+
+    # Checkout: Overview
+    FINISH_BUTTON = Locator(
+        type=LocatorType.XPATH,
+        value='//button[@id="finish"]',
+    )
+
+    # Checkout: Complete
+    CHECKOUT_COMPLETE_TITLE = Locator(
+        type=LocatorType.XPATH,
+        value='//h2[@class="complete-header" and text()="Thank you for your order!"]',
+    )
+
+    CHECKOUT_COMPLETE_CONTAINER = Locator(
+        type=LocatorType.XPATH,
+        value='//*[@id="checkout_complete_container"]',
+    )
+
+    BACK_TO_SHOP = Locator(
+        type=LocatorType.XPATH,
+        value='//*[@id="back-to-products"]',
+    )

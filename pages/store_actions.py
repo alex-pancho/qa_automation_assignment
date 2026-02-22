@@ -1,4 +1,3 @@
-import time
 from framework.logger import log_action
 from pages.store import StorePage
 
@@ -36,23 +35,27 @@ class StorePageActions:
                 raise Exception("No inventory items found")
 
             first_item = items[0]
-            button = first_item.find_element(*self._page._locators.ADD_TO_CART_BUTTON.to_tuple())
+            self.first_name = first_item.inner_text().split("\n")[0]
+            button = first_item.locator(
+                self._page._locators.ADD_TO_CART_BUTTON.to_playwright()
+            )
             button.click()
+
+            self._logger.info(f"Added product to cart: {self.first_name}")
         except Exception as e:
             self._logger.error(f"Failed to add first product to cart: {e}")
             raise
 
     @log_action("Removing first product from cart")
-    def remove_first_product_from_cart(self) -> None:
+    def remove_products_from_cart(self) -> None:
         """Remove first product from cart"""
         try:
-            items = self._page.inventory_items
+            items = self._page.remove_from_cart_button
             if not items:
                 raise Exception("No inventory items found")
 
-            first_item = items[0]
-            button = first_item.find_element(*self._page._locators.REMOVE_FROM_CART_BUTTON.to_tuple())
-            button.click()
+            for button in items:
+                button.click()
         except Exception as e:
             self._logger.error(f"Failed to remove first product from cart: {e}")
             raise
@@ -73,7 +76,7 @@ class StorePageActions:
         try:
             if not self._page.cart_badge.is_presented():
                 return 0
-            return int(self._page.cart_badge.text)
+            return int(self._page.cart_badge.get_text())
         except Exception as e:
             self._logger.error(f"Failed to get cart badge count: {e}")
             return 0
@@ -83,9 +86,8 @@ class StorePageActions:
     def sort_by_price_low_to_high(self) -> None:
         """Sort products by price (low to high)"""
         try:
-            self._page.sort_dropdown.click()
-            time.sleep(0.5)
-            self._page.sort_price_low_to_high.click()
+            low_to_hight_value = "lohi"
+            self._page.sort_dropdown.select_option(low_to_hight_value)
         except Exception as e:
             self._logger.error(f"Failed to sort products by price: {e}")
             raise
@@ -97,10 +99,42 @@ class StorePageActions:
         try:
             items = self._page.inventory_items
             for item in items:
-                price_el = item.find_element(*self._page._locators.PRODUCT_PRICE.to_tuple())
-                price_text = price_el.text.replace("$", "").strip()
+                price_text = item.inner_text().split("\n")[-2]
+                price_text = price_text.replace("$", "").strip()
                 prices.append(float(price_text))
             return prices
         except Exception as e:
             self._logger.error(f"Failed to get product prices: {e}")
             return prices
+
+    @log_action("Completing checkout process")
+    def complete_checkout(self, checkout_name:str, checkout_lastname:str, checkout_zip:str) -> None:
+        """Complete checkout process end-to-end"""
+        try:
+            # click checkout
+            self._page.checkout_button.click()
+
+            # fill user info
+            self._page.first_name_input.send_keys(checkout_name)
+            self._page.last_name_input.send_keys(checkout_lastname)
+            self._page.postal_code_input.send_keys(checkout_zip)
+
+            # continue
+            self._page.continue_button.click()
+
+            # finish
+            self._page.finish_button.click()
+
+        except Exception as e:
+            self._logger.error(f"Failed to complete checkout process: {e}")
+            raise
+
+
+    @log_action("Checking checkout complete page")
+    def is_checkout_complete(self) -> bool:
+        """Verify checkout completed successfully"""
+        try:
+            return self._page.checkout_complete_title.is_presented()
+        except Exception as e:
+            self._logger.error(f"Failed to verify checkout complete: {e}")
+            return False

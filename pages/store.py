@@ -2,7 +2,7 @@ from pages._base import BasePage
 from pages.store_locators import StorePageLocators
 
 from framework.locator import DriverType
-from framework.element import element, elements, WebElement
+from framework.element import element, elements, WebElement, ManyWebElements
 
 
 class StorePage(BasePage):
@@ -28,7 +28,7 @@ class StorePage(BasePage):
 
     # Products
     @elements("INVENTORY_ITEM")
-    def inventory_items(self) -> list[WebElement]:
+    def inventory_items(self) -> ManyWebElements:
         pass
 
     @element("PRODUCT_NAME")
@@ -39,11 +39,11 @@ class StorePage(BasePage):
     def product_price(self) -> WebElement:
         pass
 
-    @element("ADD_TO_CART_BUTTON")
-    def add_to_cart_button(self) -> WebElement:
+    @elements("ADD_TO_CART_BUTTON")
+    def add_to_cart_buttons(self) -> WebElement:
         pass
 
-    @element("REMOVE_FROM_CART_BUTTON")
+    @elements("REMOVE_FROM_CART_BUTTON")
     def remove_from_cart_button(self) -> WebElement:
         pass
 
@@ -71,4 +71,44 @@ class StorePage(BasePage):
 
     @element("SORT_OPTION_PRICE_LOW_TO_HIGH")
     def sort_price_low_to_high(self) -> WebElement:
+        pass
+    
+    @element("CHECKOUT_BUTTON")
+    def checkout_button(self) -> WebElement:
+        pass
+
+    @element("CONTINUE_SHOPPING_BUTTON")
+    def continue_shopping_button(self) -> WebElement:
+        pass
+
+    @element("CART_ITEM")
+    def cart_items(self) -> WebElement:
+        pass
+
+    @element("FIRST_NAME_INPUT")
+    def first_name_input(self) -> WebElement:
+        pass
+
+    @element("LAST_NAME_INPUT")
+    def last_name_input(self) -> WebElement:
+        pass
+
+    @element("POSTAL_CODE_INPUT")
+    def postal_code_input(self) -> WebElement:
+        pass
+
+    @element("CONTINUE_BUTTON")
+    def continue_button(self) -> WebElement:
+        pass
+
+    @element("FINISH_BUTTON")
+    def finish_button(self) -> WebElement:
+        pass
+
+    @element("CHECKOUT_COMPLETE_TITLE")
+    def checkout_complete_title(self) -> WebElement:
+        pass
+
+    @element("CHECKOUT_COMPLETE_CONTAINER")
+    def checkout_complete_container(self) -> WebElement:
         pass

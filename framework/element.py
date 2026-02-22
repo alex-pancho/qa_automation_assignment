@@ -121,6 +121,11 @@ class WebElement:
         element = self.find()
         if element:
             self._screenshot_manager.highlight_and_screenshot(element, file_name)
+    
+    @log_action("Selecting option")
+    def select_option(self, value: str):
+        pw_locator = self._driver.locator(self._locator.to_playwright())
+        pw_locator.select_option(value)
 
 
 class element:
